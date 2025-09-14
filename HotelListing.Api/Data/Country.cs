@@ -1,10 +1,9 @@
-﻿namespace HotelListing.Api.Data
+﻿namespace HotelListing.Api.Data;
+
+public class Country
 {
-    public class Country
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = null!;
-        public string ShortName { get; set; }
-        public IList<Hotel> Hotels { get; set; } = [];
-    }
+    public int Id { get; set; }
+    public required string Name { get; set; }
+    public required string ShortName { get; set; }
+    public IList<Hotel> Hotels { get; set; } = [];
 }
