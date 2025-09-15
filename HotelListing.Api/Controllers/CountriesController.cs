@@ -1,4 +1,6 @@
 ﻿using HotelListing.Api.Data;
+using HotelListing.Api.DTOs.Country;
+using HotelListing.Api.DTOs.Hotel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,73 +10,83 @@ namespace HotelListing.Api.Controllers;
 [ApiController]
 public class CountriesController(HotelListingDbContext context) : ControllerBase
 {
-    // GET: api/Countries
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Country>>> GetCountries()
+    public async Task<ActionResult<IEnumerable<GetCountriesDto>>> GetCountries()
     {
-        var countries = await context.Countries
-            .Include(q => q.Hotels)
-            .ToListAsync();
-        return countries;
+        var countries = null;
+        return Ok(countries);
     }
 
-    // GET: api/Countries/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Country>> GetCountry(int id)
+    public async Task<ActionResult<GetCountryDto>> GetCountry(int id)
     {
-        var country = await context.Countries
-            .Include(q => q.Hotels)
-            .FirstOrDefaultAsync(q => q.Id == id);
+        var country = null;
 
         if (country == null)
         {
             return NotFound();
         }
 
-        return country;
+        return Ok(country);
     }
 
-    // PUT: api/Countries/5
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutCountry(int id, Country country)
+    public async Task<IActionResult> PutCountry(int id, UpdateCountryDto updateDto)
     {
-        if (id != country.Id)
+        if (id != updateDto.Id)
         {
             return BadRequest();
         }
 
-        context.Entry(country).State = EntityState.Modified;
+        //var country = await context.Countries.FindAsync(id);
 
-        try
-        {
-            await context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!await CountryExistsAsync(id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
+        //if (country == null)
+        //{
+        //    return NotFound();
+        //}
+
+        //country.Id = countryDto.Id;
+        //country.Name = countryDto.Name;
+        //country.ShortName = countryDto.ShortName;
+
+        //context.Entry(country).State = EntityState.Modified;
+
+        //try
+        //{
+        //    await context.SaveChangesAsync();
+        //}
+        //catch (DbUpdateConcurrencyException)
+        //{
+        //    if (!await CountryExistsAsync(id))
+        //    {
+        //        return NotFound();
+        //    }
+        //    else
+        //    {
+        //        throw;
+        //    }
+        //}
 
         return NoContent();
     }
 
-    // POST: api/Countries
     [HttpPost]
-    public async Task<ActionResult<Country>> PostCountry(Country country)
+    public async Task<ActionResult<Country>> PostCountry(CreateCountryDto countryDto)
     {
+        var country = new Country 
+        {
+            Name  = countryDto.Name,
+            ShortName = countryDto.ShortName 
+        };
+
         context.Countries.Add(country);
         await context.SaveChangesAsync();
 
-        return CreatedAtAction("GetCountry", new { id = country.Id }, country);
+        var createdCountry = new GetCountryDto(country.Id, country.Name, country.ShortName, null);
+
+        return CreatedAtAction("GetCountry", new { id = country.Id }, createdCountry);
     }
 
-    // DELETE: api/Countries/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCountry(int id)
     {
