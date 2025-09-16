@@ -1,13 +1,17 @@
+using HotelListing.Api.Contracts;
 using HotelListing.Api.Data;
+using HotelListing.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the Ioc container.
 
 builder.Services.AddDbContext<HotelListingDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("HotelListingDbConnectionString")));
 
+builder.Services.AddScoped<ICountriesService, CountriesService>();
+builder.Services.AddScoped<IHotelsServices, HotelsServices>();
 
 builder.Services.AddControllers().AddJsonOptions(opt =>
 {

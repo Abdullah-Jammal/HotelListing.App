@@ -7,29 +7,28 @@ GET {{HotelListing.Api_HostAddress}}/api/hotels
 
 POST {{HotelListing.Api_HostAddress}}/api/hotels
 Content-Type: application/json
-
 {
-  "Name" : "Babylon",
-  "Address" : "Basra",
-  "Rating" : 4.9,
-  "CountryId" : 3
+  "Name" : "Heart Of Baghdad",
+  "Address" : "Baghdad",
+  "Rating" : 5,
+  "CountryId" : 4
 }
 
 ###
 
-DELETE {{HotelListing.Api_HostAddress}}/api/hotels/13
+DELETE {{HotelListing.Api_HostAddress}}/api/hotels/20
 
 ###
-GET {{HotelListing.Api_HostAddress}}/api/hotels/15
+GET {{HotelListing.Api_HostAddress}}/api/hotels/8
 
 ###
 
-PUT {{HotelListing.Api_HostAddress}}/api/hotels/4
+PUT {{HotelListing.Api_HostAddress}}/api/hotels/8
 Content-Type: application/json
 
 {
-  "Id" : 4,
-  "Name" : "Test",
+  "Id" : 8,
+  "Name" : "Test2",
   "Address" : "Baghdad",
   "Rating" : 5,
   "CountryId" : 1
@@ -45,26 +44,26 @@ POST {{HotelListing.Api_HostAddress}}/api/countries
 Content-Type: application/json
 
 {
-    "Name": "Iran",
-    "ShortName": "IRN"
+    "Name": "Palasten",
+    "ShortName": "PLS"
 }
 
 ###
 
-DELETE {{HotelListing.Api_HostAddress}}/api/countries/3
+DELETE {{HotelListing.Api_HostAddress}}/api/countries/2
 
 ###
 GET {{HotelListing.Api_HostAddress}}/api/countries/4
 
 ###
 
-PUT {{HotelListing.Api_HostAddress}}/api/countries/2
+PUT {{HotelListing.Api_HostAddress}}/api/countries/6
 Content-Type: application/json
 
 {
-    "Id" : 2,
-    "Name": "Iran2",
-    "ShortName": "IRN"
+    "Id" : 6,
+    "Name": "Okrain",
+    "ShortName": "OKR"
 }
 
 ###
