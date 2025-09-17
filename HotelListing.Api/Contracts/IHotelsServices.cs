@@ -8,7 +8,7 @@ namespace HotelListing.Api.Contracts
         Task<GetHotelDto> CreateHotelAsync(CreateHotelDto hotelDto);
         Task DeleteHotelAsync(int id);
         Task<ActionResult<GetHotelDto>> GetHotelAsync(int id);
-        Task<IEnumerable<GetHotelsDto>> GetHotelsAsync();
+        Task<IEnumerable<GetHotelDto>> GetHotelsAsync();
         Task UpdateHotelAsync(int id, UpdateHotelDto updateDto);
     }
 }

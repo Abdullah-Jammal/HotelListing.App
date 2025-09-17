@@ -23,15 +23,15 @@ GET {{HotelListing.Api_HostAddress}}/api/hotels/8
 
 ###
 
-PUT {{HotelListing.Api_HostAddress}}/api/hotels/8
+PUT {{HotelListing.Api_HostAddress}}/api/hotels/7
 Content-Type: application/json
 
 {
-  "Id" : 8,
-  "Name" : "Test2",
+  "Id" : 7,
+  "Name" : "Test5445",
   "Address" : "Baghdad",
   "Rating" : 5,
-  "CountryId" : 1
+  "CountryId" : 4
 }
 
 ###
