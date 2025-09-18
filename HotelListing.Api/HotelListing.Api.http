@@ -1,42 +1,69 @@
 @HotelListing.Api_HostAddress = https://localhost:7095
 
-GET {{HotelListing.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
 
 GET {{HotelListing.Api_HostAddress}}/api/hotels
 
 ###
 
-@id=0
-GET {{HotelListing.Api_HostAddress}}/api/hotels/2
-
-###
-
-DELETE {{HotelListing.Api_HostAddress}}/api/hotels/2
-
-###
-
 POST {{HotelListing.Api_HostAddress}}/api/hotels
 Content-Type: application/json
-
 {
-  "Id" : 5,
-    "name": "Hotel 4",
-    "address": "Address 1",
-    "rating": 4.5
+  "Name" : "Heart Of Baghdad",
+  "Address" : "Baghdad",
+  "Rating" : 5,
+  "CountryId" : 4
 }
 
 ###
 
-PUT {{HotelListing.Api_HostAddress}}/api/hotels/0
+DELETE {{HotelListing.Api_HostAddress}}/api/hotels/20
+
+###
+GET {{HotelListing.Api_HostAddress}}/api/hotels/8
+
+###
+
+PUT {{HotelListing.Api_HostAddress}}/api/hotels/7
 Content-Type: application/json
 
 {
-    "name": "Hotel 3",
-    "address": "Address 1",
-    "rating": 5
+  "Id" : 7,
+  "Name" : "Test5445",
+  "Address" : "Baghdad",
+  "Rating" : 5,
+  "CountryId" : 4
+}
+
+###
+
+GET {{HotelListing.Api_HostAddress}}/api/countries
+
+###
+
+POST {{HotelListing.Api_HostAddress}}/api/countries
+Content-Type: application/json
+
+{
+    "Name": "Palasten",
+    "ShortName": "PLS"
+}
+
+###
+
+DELETE {{HotelListing.Api_HostAddress}}/api/countries/2
+
+###
+GET {{HotelListing.Api_HostAddress}}/api/countries/4
+
+###
+
+PUT {{HotelListing.Api_HostAddress}}/api/countries/6
+Content-Type: application/json
+
+{
+    "Id" : 6,
+    "Name": "Okrain",
+    "ShortName": "OKR"
 }
 
 ###
