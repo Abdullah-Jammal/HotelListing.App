@@ -6,7 +6,7 @@ namespace HotelListing.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class HotelsController(IHotelsServices hotelServices) : ControllerBase
+public class HotelsController(IHotelsServices hotelServices) : BaseApiController
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<GetHotelsDto>>> GetHotels()

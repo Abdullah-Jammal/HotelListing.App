@@ -11,7 +11,7 @@ Content-Type: application/json
   "Name" : "Heart Of Baghdad",
   "Address" : "Baghdad",
   "Rating" : 5,
-  "CountryId" : 4
+  "CountryId" : 1
 }
 
 ###
