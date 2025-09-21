@@ -2,6 +2,7 @@ using HotelListing.Api.Contracts;
 using HotelListing.Api.Data;
 using HotelListing.Api.MappingProfiles;
 using HotelListing.Api.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,11 @@ builder.Services.AddDbContext<HotelListingDbContext>(options =>
 
 builder.Services.AddScoped<ICountriesService, CountriesService>();
 builder.Services.AddScoped<IHotelsServices, HotelsServices>();
+
+builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
+    .AddEntityFrameworkStores<HotelListingDbContext>();
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddAutoMapper(cfg =>
 {
@@ -28,6 +34,7 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+app.MapGroup("api/auth").MapIdentityApi<ApplicationUser>();
 
 if (app.Environment.IsDevelopment())
 {

@@ -1,30 +1,30 @@
 @HotelListing.Api_HostAddress = https://localhost:7095
-
+@json = application/json
 
 GET {{HotelListing.Api_HostAddress}}/api/hotels
 
 ###
 
 POST {{HotelListing.Api_HostAddress}}/api/hotels
-Content-Type: application/json
+Content-Type: {{json}}
 {
-  "Name" : "Heart Of Baghdad",
-  "Address" : "Baghdad",
+  "Name" : "Zaaed",
+  "Address" : "Dubai",
   "Rating" : 5,
   "CountryId" : 1
 }
 
 ###
 
-DELETE {{HotelListing.Api_HostAddress}}/api/hotels/20
+DELETE {{HotelListing.Api_HostAddress}}/api/hotels/2
 
 ###
-GET {{HotelListing.Api_HostAddress}}/api/hotels/8
+GET {{HotelListing.Api_HostAddress}}/api/hotels/3
 
 ###
 
 PUT {{HotelListing.Api_HostAddress}}/api/hotels/7
-Content-Type: application/json
+Content-Type: {{json}}
 
 {
   "Id" : 7,
@@ -41,11 +41,11 @@ GET {{HotelListing.Api_HostAddress}}/api/countries
 ###
 
 POST {{HotelListing.Api_HostAddress}}/api/countries
-Content-Type: application/json
+Content-Type: {{json}}
 
 {
-    "Name": "Palasten",
-    "ShortName": "PLS"
+    "Name": "Emirate",
+    "ShortName": "EMT"
 }
 
 ###
@@ -57,13 +57,28 @@ GET {{HotelListing.Api_HostAddress}}/api/countries/4
 
 ###
 
-PUT {{HotelListing.Api_HostAddress}}/api/countries/6
-Content-Type: application/json
+PUT {{HotelListing.Api_HostAddress}}/api/countries/3
+Content-Type: {{json}}
 
 {
-    "Id" : 6,
+    "Id" : 3,
     "Name": "Okrain",
     "ShortName": "OKR"
 }
 
+###
+POST {{HotelListing.Api_HostAddress}}/api/auth/register
+Content-Type: {{json}}
+{
+  "email" : "abdala@gmail.com",
+  "password" : "P@ssowrd1"
+}
+
+###
+POST {{HotelListing.Api_HostAddress}}/api/auth/login
+Content-Type: {{json}}
+{
+  "email" : "abdala@gmail.com",
+  "password" : "P@ssowrd1"
+}
 ###
