@@ -12,5 +12,4 @@ public class HotelListingDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<Country> Countries { get; set; }
     public DbSet<Hotel> Hotels { get; set; }
-
 }
