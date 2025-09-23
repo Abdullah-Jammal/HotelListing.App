@@ -37,17 +37,18 @@ Content-Type: {{json}}
 ###
 
 GET {{HotelListing.Api_HostAddress}}/api/countries
-Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyZGJmMmE3ZS0xMjRlLTRkZWItYjQ5Ni1iNGRlYjE2Y2M1MzgiLCJlbWFpbCI6ImFiZGFsYTVAZ21haWwuY29tIiwianRpIjoiYTZjMDkwZWItOTY5Yi00ZDYzLTg4YjgtYzFlY2VhM2RiZmNjIiwibmFtZSI6Ikxhc3QsIEZpcnN0IiwiZXhwIjoxNzU4NTQ3ODgwLCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.21YWn-bONu_EJH2sqMPpgoJD6CuEIsQ7mo8QvgO4MhQ
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NWYxYzg1Mi1kYjk0LTQyYWEtOGU2Zi1mYjIwYmM3Yjk0OGIiLCJlbWFpbCI6ImFkbWluNTU1NTU1NUBnbWFpbC5jb20iLCJqdGkiOiI4ZWQwZGZiYS02MjYzLTQ1NmMtODEyMy1hY2RmNTRkNzlmYjQiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzU4NjE3NTkxLCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.CLN9Zl-JZlFRB_p-vXNVyIEsYQRI3xzXMXeih-sqcQk
 
 
 ###
 
 POST {{HotelListing.Api_HostAddress}}/api/countries
 Content-Type: {{json}}
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NWYxYzg1Mi1kYjk0LTQyYWEtOGU2Zi1mYjIwYmM3Yjk0OGIiLCJlbWFpbCI6ImFkbWluNTU1NTU1NUBnbWFpbC5jb20iLCJqdGkiOiI4NGIxZGNmOS03OTZkLTQyYjAtYTE0Zi1mMmYxYThlNWViYmEiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzU4NjEzNzQ3LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.Ad0HkQo0fKejpElN0TceAfkYz5DR1B2Ay8PvHvf1B6A
 
 {
-    "Name": "Qatar",
-    "ShortName": "QTR"
+    "Name": "Saudi Arabi",
+    "ShortName": "SAD"
 }
 
 ###
@@ -89,7 +90,7 @@ POST {{HotelListing.Api_HostAddress}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email" : "abdala5@gmail.com",
+  "email" : "admin5555555@gmail.com",
   "password" : "P@ssowrd1"
 }
 
@@ -99,9 +100,10 @@ POST {{HotelListing.Api_HostAddress}}/api/auth/register
 Content-Type: application/json
 
 {
-  "email" : "abdala5@gmail.com",
+  "email" : "admin5555555@gmail.com",
   "password" : "P@ssowrd1",
   "firstName" : "First",
-  "lastName" : "Last"
+  "lastName" : "Last",
+  "role" : "Administrator"
 }
 ###

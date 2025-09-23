@@ -42,5 +42,4 @@ public class HotelsController(IHotelsServices hotelServices) : BaseApiController
         await hotelServices.DeleteHotelAsync(id);
         return NoContent();
     }
-
 }

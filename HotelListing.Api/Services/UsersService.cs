@@ -29,12 +29,16 @@ public class UsersService(UserManager<ApplicationUser> userManager, IConfigurati
             var errors = result.Errors.Select(e => new Error(ErrorCodes.BadRequest, e.Description)).ToArray();
             return Result<RegisteredUserDto>.BadRequest(errors);
         }
+
+        await userManager.AddToRoleAsync(user, registerUserDto.Role);
+
         var registeredUser = new RegisteredUserDto
         {
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Id = user.Id
+            Id = user.Id,
+            Role = registerUserDto.Role
         };
         return Result<RegisteredUserDto>.Success(registeredUser);
     }
@@ -72,13 +76,10 @@ public class UsersService(UserManager<ApplicationUser> userManager, IConfigurati
         // set user role claims
         var roles = await userManager.GetRolesAsync(user);
         var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x)).ToList();
-
         claims = claims.Union(roleClaims).ToList();
-
         // set jwt key credentials
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"] ?? string.Empty));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
         // create encoded token
         var token = new JwtSecurityToken(
                 issuer: configuration["JwtSettings:Issuer"],
@@ -87,9 +88,7 @@ public class UsersService(UserManager<ApplicationUser> userManager, IConfigurati
                 expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(configuration["JwtSettings:DurationInMinutes"])),
                 signingCredentials: credentials
             );
-
         // return token
-
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }
