@@ -1,0 +1,14 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace HotelListing.Api.Data.Configurations;
+
+public class BookingConfiguration : IEntityTypeConfiguration<Booking>
+{
+    public void Configure(EntityTypeBuilder<Booking> builder)
+    {
+        builder.Property(q => q.Status)
+            .HasConversion<string>()
+            .HasMaxLength(20);
+    }
+}

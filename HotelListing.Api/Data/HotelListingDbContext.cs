@@ -7,12 +7,12 @@ namespace HotelListing.Api.Data;
 public class HotelListingDbContext : IdentityDbContext<ApplicationUser>
 {
     public HotelListingDbContext(DbContextOptions<HotelListingDbContext> option) : base(option)
-    {
-        
-    }
+    { }
 
     public DbSet<Country> Countries { get; set; }
     public DbSet<Hotel> Hotels { get; set; }
+    public DbSet<HotelAdmin> Admins { get; set; }
+    public DbSet<Booking> Bookings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
