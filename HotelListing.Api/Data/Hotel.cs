@@ -9,5 +9,6 @@ public class Hotel
     public double Rating { get; set; }
     public int CountryId { get; set; }
     public Country? Country { get; set; }
-    public ICollection<HotelAdmin> hotelAdmins { get; set; } = [];
+    public ICollection<HotelAdmin> Admins { get; set; } = [];
+    public ICollection<Booking> Bookings { get; set; } = [];
 }

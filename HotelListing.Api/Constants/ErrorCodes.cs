@@ -6,4 +6,6 @@ public class ErrorCodes
     public const string Validation = "Validation";
     public const string BadRequest = "BadRequest";
     public const string Conflict = "Conflict";
+    public const string Forbid = "Forbid";
+
 }
