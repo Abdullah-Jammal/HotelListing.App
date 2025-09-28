@@ -62,7 +62,8 @@ public class UsersService(UserManager<ApplicationUser> userManager, IConfigurati
         return Result<string>.Success(token);
     }
 
-    public string UserId => httpContextAccessor?.HttpContext?.User?.FindFirst(JwtRegisteredClaimNames.Sub)?.Value ?? string.Empty;
+    public string UserId => httpContextAccessor?.HttpContext?.User?.FindFirst(JwtRegisteredClaimNames.Sub)?.Value ?? 
+        httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
 
     // Generate Token Function
     private async Task<string> GenerateToken(ApplicationUser user)

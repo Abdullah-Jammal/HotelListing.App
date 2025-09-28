@@ -51,14 +51,6 @@ public class BookingService(HotelListingDbContext context, IUsersService usersSe
         {
             return Result<GetBookingDto>.Failure(new Error(ErrorCodes.NotFound, $"hotel with id {createBookingDto.HotelId} not found!"));
         }
-        if (createBookingDto.Guests <= 0)
-        {
-            return Result<GetBookingDto>.Failure(new Error(ErrorCodes.Validation, $"Number of guests must be at least 1"));
-        }
-        if (createBookingDto.CheckIn >= createBookingDto.CheckOut)
-        {
-            return Result<GetBookingDto>.Failure(new Error(ErrorCodes.Validation, "Check-out date must be larger check-in date."));
-        }
 
         var overlaps = await context.Bookings
             .AnyAsync(b => b.HotelId == createBookingDto.HotelId &&
@@ -134,16 +126,6 @@ public class BookingService(HotelListingDbContext context, IUsersService usersSe
         {
             return Result<GetBookingDto>.Failure(new Error(ErrorCodes.Validation, "Cancelled bookings cannot be updated."));
         }
-
-        if (updateBookingDto.Guests <= 0)
-        {
-            return Result<GetBookingDto>.Failure(new Error(ErrorCodes.Validation, $"Number of guests must be at least 1"));
-        }
-        if (updateBookingDto.CheckIn >= updateBookingDto.CheckOut)
-        {
-            return Result<GetBookingDto>.Failure(new Error(ErrorCodes.Validation, "Check-out date must be larger check-in date."));
-        }
-
         var perNights = booking.Hotel!.PerRatingNight;
         booking.CheckIn = updateBookingDto.CheckIn;
         booking.CheckOut = updateBookingDto.CheckOut;
@@ -237,4 +219,31 @@ public class BookingService(HotelListingDbContext context, IUsersService usersSe
         return Result.Success();
     }
 
+    public async Task<Result<IEnumerable<GetBookingDto>>> GetUserBookingForHotelAsync(int hotelId)
+    {
+        var userId = usersService.UserId;
+        var hotelExist = await context.Hotels.AnyAsync(h => h.Id == hotelId);
+        if (!hotelExist)
+        {
+            return Result<IEnumerable<GetBookingDto>>.Failure(new Error(ErrorCodes.NotFound, $"hotel with id {hotelId} not found!"));
+        }
+        var bookings = await context.Bookings
+            .Where(b => b.HotelId == hotelId && b.UserId == userId)
+            .OrderBy(b => b.CheckIn)
+            .Select(b => new GetBookingDto
+            (
+                b.Id,
+                b.HotelId,
+                b.Hotel!.Name,
+                b.CheckIn,
+                b.CheckOut,
+                b.Guests,
+                b.TotalPrice,
+                b.Status.ToString(),
+                b.CreatedAtUtc,
+                b.UpdatedAtUtc
+            ))
+            .ToListAsync();
+        return Result<IEnumerable<GetBookingDto>>.Success(bookings);
+    }
 }

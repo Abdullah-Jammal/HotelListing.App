@@ -11,5 +11,6 @@ namespace HotelListing.Api.Contracts
         Task<Result<GetBookingDto>> CreateBookingAsync(CreateBookingDto createBookingDto);
         Task<Result<IEnumerable<GetBookingDto>>> GetBookingForHotelAsync(int hotelId);
         Task<Result<GetBookingDto>> UpdateBookingAsync(int hotelId, int bookingId, UpdateBookingDto updateBookingDto);
+        Task<Result<IEnumerable<GetBookingDto>>> GetUserBookingForHotelAsync(int hotelId);
     }
 }

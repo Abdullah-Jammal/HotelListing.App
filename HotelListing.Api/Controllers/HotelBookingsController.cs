@@ -1,4 +1,5 @@
-﻿using HotelListing.Api.Contracts;
+﻿using HotelListing.Api.AuthrizationFilter;
+using HotelListing.Api.Contracts;
 using HotelListing.Api.DTOs.Booking;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,19 @@ namespace HotelListing.Api.Controllers;
 [Authorize]
 public class HotelBookingsController(IBookingService bookingService) : BaseApiController
 {
+
+    [HttpGet("/admin")]
+    [HotelOrSystemAdmin]
+    public async Task<ActionResult<IEnumerable<GetBookingDto>>> GetBookingsAdmin([FromRoute] int hotelId)
+    {
+        var result = await bookingService.GetBookingForHotelAsync(hotelId);
+        return ToActionResult(result);
+    }
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<GetBookingDto>>> GetBookings([FromRoute]int hotelId)
     {
-        var result = await bookingService.GetBookingForHotelAsync(hotelId);
+        var result = await bookingService.GetUserBookingForHotelAsync(hotelId);
         return ToActionResult(result);
     }
 
@@ -39,7 +49,7 @@ public class HotelBookingsController(IBookingService bookingService) : BaseApiCo
     }
 
     [HttpPut("{bookingId:int}/admin/cancel")]
-    [Authorize(Roles = "Hotel Admin, Administrator")]
+    [HotelOrSystemAdmin]
     public async Task<ActionResult<GetBookingDto>> AdminCancelBooking([FromRoute] int hotelId, [FromRoute] int bookingId)
     {
         var result = await bookingService.AdminCancelBookingAsync(hotelId, bookingId);
@@ -47,7 +57,7 @@ public class HotelBookingsController(IBookingService bookingService) : BaseApiCo
     }
 
     [HttpPut("{bookingId:int}/admin/confirm")]
-    [Authorize(Roles = "Hotel Admin, Administrator")]
+    [HotelOrSystemAdmin]
     public async Task<ActionResult<GetBookingDto>> AdminConfirmBooking([FromRoute] int hotelId, [FromRoute] int bookingId)
     {
         var result = await bookingService.AdminConfirmBookingAsync(hotelId, bookingId);
