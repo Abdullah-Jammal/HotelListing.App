@@ -1,5 +1,5 @@
-﻿using HotelListing.Api.Data;
-using Microsoft.AspNetCore.Http;
+﻿using HotelListing.Api.Common.Constants;
+using HotelListing.App.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +11,7 @@ namespace HotelListing.Api.AuthrizationFilter;
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
 public sealed class HotelOrSystemAdminAttribute : TypeFilterAttribute
 {
-    public HotelOrSystemAdminAttribute() : base(typeof(HotelOrSystemAdminFilter))
-    {
-    }
+    public HotelOrSystemAdminAttribute() : base(typeof(HotelOrSystemAdminFilter)) { }
 }
 
 public class HotelOrSystemAdminFilter(HotelListingDbContext dbContext) : IAsyncAuthorizationFilter
@@ -26,7 +24,7 @@ public class HotelOrSystemAdminFilter(HotelListingDbContext dbContext) : IAsyncA
             context.Result = new UnauthorizedResult();
             return;
         }
-        if(httpUser!.IsInRole("Administrator"))
+        if(httpUser!.IsInRole(RoleNames.Administrator))
         {
             return;
         }
