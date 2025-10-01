@@ -1,4 +1,6 @@
 ﻿using HotelListing.Api.Common.Constants;
+using HotelListing.Api.Common.Models.Extentions;
+using HotelListing.Api.Common.Models.Paging;
 using HotelListing.Api.Common.Results;
 using HotelListing.App.Application.Contracts;
 using HotelListing.App.Application.DTOs.Booking;
@@ -10,12 +12,12 @@ namespace HotelListing.App.Application.Services;
 
 public class BookingService(HotelListingDbContext context, IUsersService usersService) : IBookingService
 {
-    public async Task<Result<IEnumerable<GetBookingDto>>> GetBookingForHotelAsync(int hotelId)
+    public async Task<Result<PagedResult<GetBookingDto>>> GetBookingForHotelAsync(int hotelId, PaginationParameters paginationParameters)
     {
         var hotelExist = await context.Hotels.AnyAsync(h => h.Id == hotelId);
         if (!hotelExist)
         {
-            return Result<IEnumerable<GetBookingDto>>.Failure(new Error(ErrorCodes.NotFound, $"hotel with id {hotelId} not found!"));
+            return Result<PagedResult<GetBookingDto>>.Failure(new Error(ErrorCodes.NotFound, $"hotel with id {hotelId} not found!"));
         }
         var bookings = await context.Bookings
             .Where(b => b.HotelId == hotelId)
@@ -33,8 +35,8 @@ public class BookingService(HotelListingDbContext context, IUsersService usersSe
                 b.CreatedAtUtc,
                 b.UpdatedAtUtc
             ))
-            .ToListAsync();
-        return Result<IEnumerable<GetBookingDto>>.Success(bookings);
+            .ToPageResultAsync(paginationParameters);
+        return Result<PagedResult<GetBookingDto>>.Success(bookings);
     }
 
     public async Task<Result<GetBookingDto>> CreateBookingAsync(CreateBookingDto createBookingDto)
@@ -219,13 +221,13 @@ public class BookingService(HotelListingDbContext context, IUsersService usersSe
         return Result.Success();
     }
 
-    public async Task<Result<IEnumerable<GetBookingDto>>> GetUserBookingForHotelAsync(int hotelId)
+    public async Task<Result<PagedResult<GetBookingDto>>> GetUserBookingForHotelAsync(int hotelId, PaginationParameters paginationParameters)
     {
         var userId = usersService.UserId;
         var hotelExist = await context.Hotels.AnyAsync(h => h.Id == hotelId);
         if (!hotelExist)
         {
-            return Result<IEnumerable<GetBookingDto>>.Failure(new Error(ErrorCodes.NotFound, $"hotel with id {hotelId} not found!"));
+            return Result<PagedResult<GetBookingDto>>.Failure(new Error(ErrorCodes.NotFound, $"hotel with id {hotelId} not found!"));
         }
         var bookings = await context.Bookings
             .Where(b => b.HotelId == hotelId && b.UserId == userId)
@@ -243,7 +245,7 @@ public class BookingService(HotelListingDbContext context, IUsersService usersSe
                 b.CreatedAtUtc,
                 b.UpdatedAtUtc
             ))
-            .ToListAsync();
-        return Result<IEnumerable<GetBookingDto>>.Success(bookings);
+            .ToPageResultAsync(paginationParameters);
+        return Result<PagedResult<GetBookingDto>>.Success(bookings);
     }
 }

@@ -107,3 +107,12 @@ Content-Type: application/json
   "role" : "Administrator"
 }
 ###
+
+POST {{HotelListing.Api_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  //RegisterUserDto
+}
+
+###

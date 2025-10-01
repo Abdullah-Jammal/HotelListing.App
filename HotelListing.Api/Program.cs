@@ -133,11 +133,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
-using HotelListing.Api.Common.Models;
 using HotelListing.App.Domain;
 using HotelListing.App.Application.MappingProfiles;
 using HotelListing.App.Application.Contracts;
 using HotelListing.App.Application.Services;
+using HotelListing.Api.Common.Models.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 

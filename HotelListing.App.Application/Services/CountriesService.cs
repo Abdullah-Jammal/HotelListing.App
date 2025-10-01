@@ -1,4 +1,6 @@
 ﻿using HotelListing.Api.Common.Constants;
+using HotelListing.Api.Common.Models.Extentions;
+using HotelListing.Api.Common.Models.Paging;
 using HotelListing.Api.Common.Results;
 using HotelListing.App.Application.Contracts;
 using HotelListing.App.Application.DTOs.Country;
@@ -10,11 +12,11 @@ namespace HotelListing.App.Application.Services;
 
 public class CountriesService(HotelListingDbContext context) : ICountriesService
 {
-    public async Task<Result<IEnumerable<GetCountriesDto>>> GetCountriesAsync()
+    public async Task<Result<PagedResult<GetCountriesDto>>> GetCountriesAsync(PaginationParameters paginationParameters)
     {
-        var countries = await context.Countries.Select(c => new GetCountriesDto(c.Id, c.Name, c.ShortName)).ToListAsync();
+        var countries = await context.Countries.Select(c => new GetCountriesDto(c.Id, c.Name, c.ShortName)).ToPageResultAsync(paginationParameters);
 
-        return Result<IEnumerable<GetCountriesDto>>.Success(countries);
+        return Result<PagedResult<GetCountriesDto>>.Success(countries);
     }
 
     public async Task<Result<GetCountryDto>> GetCountryAsync(int id)

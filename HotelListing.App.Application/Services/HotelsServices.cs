@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using HotelListing.Api.Common.Models.Extentions;
+using HotelListing.Api.Common.Models.Paging;
 using HotelListing.App.Application.Contracts;
 using HotelListing.App.Application.DTOs.Hotel;
 using HotelListing.App.Domain;
@@ -10,12 +12,12 @@ namespace HotelListing.App.Application.Services;
 
 public class HotelsServices(HotelListingDbContext context, IMapper mapper) : IHotelsServices
 {
-    public async Task<IEnumerable<GetHotelDto>> GetHotelsAsync()
+    public async Task<PagedResult<GetHotelDto>> GetHotelsAsync(PaginationParameters paginationParameters)
     {
         var hotels = await context.Hotels
             .Include(q => q.Country)
             .ProjectTo<GetHotelDto>(mapper.ConfigurationProvider)
-            .ToListAsync();
+            .ToPageResultAsync(paginationParameters);
         return hotels;
     }
 
