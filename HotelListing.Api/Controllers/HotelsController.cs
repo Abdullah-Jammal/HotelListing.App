@@ -1,4 +1,5 @@
 ﻿using HotelListing.Api.Common.Constants;
+using HotelListing.Api.Common.Models.Filtering;
 using HotelListing.Api.Common.Models.Paging;
 using HotelListing.App.Application.Contracts;
 using HotelListing.App.Application.DTOs.Hotel;
@@ -13,9 +14,9 @@ namespace HotelListing.Api.Controllers;
 public class HotelsController(IHotelsServices hotelServices) : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<PagedResult<GetHotelsDto>>> GetHotels([FromQuery] PaginationParameters paginationParameters)
+    public async Task<ActionResult<PagedResult<GetHotelsDto>>> GetHotels([FromQuery] PaginationParameters paginationParameters, [FromQuery] HotelFilterParameters filters)
     {
-        var hotels = await hotelServices.GetHotelsAsync(paginationParameters);
+        var hotels = await hotelServices.GetHotelsAsync(paginationParameters, filters);
         return Ok(hotels);
     }
 

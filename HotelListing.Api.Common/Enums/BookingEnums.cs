@@ -1,4 +1,4 @@
-﻿namespace HotelListing.App.Domain.Enums;
+﻿namespace HotelListing.Api.Common.Enums;
     public enum BookingStatus
     {
         Pending,

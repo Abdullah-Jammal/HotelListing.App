@@ -1,4 +1,5 @@
 ﻿using HotelListing.Api.Common.Constants;
+using HotelListing.Api.Common.Models.Filtering;
 using HotelListing.Api.Common.Models.Paging;
 using HotelListing.App.Application.Contracts;
 using HotelListing.App.Application.DTOs.Country;
@@ -14,9 +15,10 @@ namespace HotelListing.Api.Controllers;
 public class CountriesController(ICountriesService countriesService) : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<PagedResult<GetCountriesDto>>> GetCountries([FromQuery] PaginationParameters paginationParameters)
+    public async Task<ActionResult<PagedResult<GetCountriesDto>>> GetCountries([FromQuery] PaginationParameters paginationParameters,
+        [FromQuery] CountryFilterParameters filters)
     {
-        var result = await countriesService.GetCountriesAsync(paginationParameters);
+        var result = await countriesService.GetCountriesAsync(paginationParameters, filters);
         return ToActionResult(result);
     }
 
